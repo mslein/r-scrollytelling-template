@@ -6,19 +6,75 @@ output: html_document
 knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "docs") })
 ---
-## Introduction
+## Overview
 
-This project hosts a skeleton structure suitable for building out and publishing a map-based scrollytelling
-interface based on R Markdown. You can build your own scrollytelling interface using R and R Markdown,
-using free tools such as git, R and R studio, and publish and host it for free using [GitHub Pages](https://pages.github.com/).
+# Background (scroll panel 1)
 
-This first section renders a basic vector map layer represented as an ESRI Shapefile, perhaps
-[exported from a GIS system such as QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/supported_data.html#esri-shapefile-format).
+What are bioblitzs?
+
+Bioblitzs can be many things, but at there core, they are a gathering of citizens to document and identify biodiversity in a given area over short period of time (cite iNat Guide, Nat Geo, etc). The term bioblitz was first coined by the a naturalist for the United States National Park Service who coordinated the first bioblitz ever held in 1996 (cite). This first bioblitz gathered scientists, naturalists, and citizens alike to survey an area and add additional information to the existing knowledge base. Bioblitzs have followed, tailored, and expanded upon this original model with the goal of gathering more knowledge about biodiversity across the globe.
+
+In the last five years, numerous Bioblitzs have been held across British Columbia, with 5 featured here
+
+[MAYBE I COULD ADD PHOTOS OR SOMETHING WITH EACH DOT?]
+
+
+```{r, echo=FALSE, message=FALSE}
+pacman::p_load(leaflet, tidyverse)
+bioblitz <- data.frame(title=c("Hakai Bioblitz 2018", "False Creek 2022", "Galiano Island 2019, 2023", 
+                                  "Stanely Park 2022", "Bamfield Marine Sciences Centre 2022"), 
+                          lon = c(-128.0365, -123.1248, -123.4415, -123.1443, -125.1428), 
+                          lat = c(51.5559, 49.2699, 48.9236, 49.3043, 48.8333))
+
+leaflet(data=bioblitz) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(~lon, ~lat, popup = ~as.character(title), label = ~as.character(title))
+  
+```
+
+# The Salish Sea Bioregion
+
+The Salish Sea Bioregion in a transnational ecosystem spanning marine and freshwater watersheds across British Columbia and Washington state.
+
+
+```{r, echo=FALSE, message=FALSE}
+source("scripts/vector_map_scriptSalishsea.R")
+baseMap
+```
+
+Marked on this map are organizations working across the Salish Sea to contribute to and build a better knowledge base of the region. 
+
+```{r, echo=FALSE, message=FALSE}
+orgs <- data.frame(title=c("Hakai Institute", "Galiano Conservancy Association", "Institute for Multidisciplinary Ecological Research in the Salish Sea", "University of British Columbia"), 
+                          lon = c(-123.329773, -123.4678, -123.4415, -123.2460), 
+                          lat = c(48.407326, 48.9297, 48.9236, 49.2606))
+
+leaflet(data=orgs) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addCircleMarkers(~lon, ~lat, popup = ~as.character(title), label = ~as.character(title), stroke=TRUE,  color="#414487FF", opacity=0.8, fill=TRUE,  fillColor="#414487FF", fillOpacity=0.5, weight=1, ) %>%
+  fitBounds(-123, 48.1, -123.5, 49.5)
+```
+
+# Galiano Island
+
+[history of galiano]
+[overview of important areas?, including xethecum?]
+
 
 ```{r, echo=FALSE, message=FALSE}
 source("scripts/vector_map_script.R")
 baseMap
 ```
+
+
+# Xetthecum
+
+
+```{r, echo=FALSE, message=FALSE}
+source("scripts/vector_map_scriptXetthecum.R")
+baseMap
+```
+
 
 
 ## Raster map

@@ -5,7 +5,7 @@ library(raster)
 source("scripts/utils.R")
 
 #Layer 1: bare earth raster 
-hillshade <- raster("spatial_data/rasters/Sample.tif")
+hillshade <- raster("spatial_data/rasters/Galiano_Island_DSM.tif")
 
 #Render leaflet map
 
