@@ -1,5 +1,5 @@
 # Load libraries
-pacman::p_load(sf, tidyverse, sf)
+pacman::p_load(sf, tidyverse, sf, viridis)
 
 # Source dependencies
 
@@ -25,6 +25,11 @@ hunterston2010_names <- unique(hunterston2010$scientificName)
 hunterston2023_coords <- hunterston2023 %>% select(Id, latitude, longitude)
 confirmed_obs <- hunterston2023 %>% filter(scientificName %in% hunterston2010_names) #261 confirmed observations
 new_obs <- hunterston2023 %>% filter(!scientificName %in% hunterston2010_names) #134 new observations
+hulq <- read_csv("reintegrated-hulq.csv") %>%
+  rename(scientificName = `iNaturalist taxon name`)%>%
+  select(scientificName, `Food Value`, `Medicinal Value`, `Spiritual Value`, `Material Value`, 
+         `Trade Value`, `Indicator Value`, `Hulquminum Name`, `Hulquminum Authority`)
+hulq.names <- unique(hulq$scientificName) 
 
 confirmed_cultr <- confirmed_obs %>% filter(scientificName %in% hulq.names) # 2 confirmed
 new_cult <- new_obs %>% filter(scientificName %in% hulq.names) # 2 new 
@@ -40,6 +45,9 @@ summary_2023 <- hunterston2023 %>%
 summary_new <- new_obs %>%
   group_by(Id) %>%
   summarise(species=length(unique(scientificName)))
+
+#species list per community 
+#geoJson list of species present
 
 summary_confirmed <- confirmed_obs %>%
   group_by(Id) %>%
