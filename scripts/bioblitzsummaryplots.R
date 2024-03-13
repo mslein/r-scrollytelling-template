@@ -86,12 +86,10 @@ summary_month <- rbind(m.1, m.2, m.3, m.4, m.5, m.6, m.7,
 summary_monthp <- summary_month %>%
   plot_ly(y = ~cum.spp, x=~as.numeric(month), type="scatter")
 
-
 summary_2023 <- combined %>%
   filter(year == 2023) %>%
   group_by(month) %>%
   summarise(spp = length(unique(Taxon)))
-
 
 summary2023_plot<-summary_2023 %>%
   plot_ly(y = ~spp, x=~as.numeric(month), type="scatter")

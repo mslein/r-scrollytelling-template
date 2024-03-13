@@ -37,7 +37,7 @@ The Salish Sea Bioregion in a transnational ecosystem spanning marine and freshw
 Working across the Bioregion involves collaboration, cooperation, and management of the ecosystem with many partners, intersets, and values. 
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, eval=FALSE}
 source("scripts/vector_map_scriptSalishsea.R")
 ```
 
@@ -73,7 +73,7 @@ Important areas of interest on Galiano:
 
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, eval=FALSE}
 source("scripts/vector_map_script.R")
 ```
 
